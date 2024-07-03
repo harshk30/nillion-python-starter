@@ -1,12 +1,21 @@
 from nada_dsl import *
 
-
 def nada_main():
-    party1 = Party(name="Party1")
-    my_int1 = SecretInteger(Input(name="my_int1", party=party1))
-    my_int2 = SecretInteger(Input(name="my_int2", party=party1))
+    deadalive = Party(name="Dead/Alive")
 
-    # write the computation for your program here - use my_int1 and my_int2 as inputs
-    # make sure you change the output below to be your new output
+    my_int1 = SecretInteger(Input(name="my_int1", party=deadalive))
+    my_int2 = SecretInteger(Input(name="my_int2", party=deadalive))
 
-    return [Output(my_int1, "my_output", party1)]
+    int1 = my_int1 % 6  # Modulo operation on my_int1
+    int2 = my_int2 % 6  # Modulo operation on my_int2
+
+    # Check the results of the modulo operation
+    if int1 == 0:
+        new_int = SecretInteger(1)
+    elif int2 == 0:
+        new_int = SecretInteger(2)
+    else:
+        new_int = SecretInteger(0)
+
+    # Return the output to the party
+    return [Output(new_int, "my_output", deadalive)]
